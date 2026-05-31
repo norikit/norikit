@@ -12,12 +12,6 @@
   </picture>
 </p>
 
-<h1 align="center">norikit</h1>
-
-<p align="center">
-  <strong>Sane defaults, insane customization.</strong>
-</p>
-
 <p align="center">
   A suite of native macOS desktop-customization tools for the ricing community —<br/>
   fast, hackable, and visually cohesive by design.
