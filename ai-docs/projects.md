@@ -5,6 +5,15 @@ the placeholder repos should be filled in as they're defined.
 
 ## Established
 
+### [noricore](https://github.com/norikit/noricore) — event broker & data backbone · 🌱 early
+
+The **connective tissue** of the ecosystem. Runs as a standalone macOS daemon (LaunchAgent)
+and aggregates system state from native Apple APIs — battery, network, active app, CPU,
+calendar, time, and more. Distributes events to all norikit tools and third-party clients
+over a shared IPC interface, replacing per-tool polling with a single source of truth.
+Stack: Swift daemon, macOS 13+. See its [knowledge base](https://github.com/norikit/noricore/tree/main/ai-docs)
+for the full design (IPC mechanism, event schema, subscription model TBD — Q1–Q5).
+
 ### [noribar](https://github.com/norikit/noribar) — menu-bar replacement · 🚧 active
 A macOS menu-bar replacement built around **native, fully-animated SF Symbols**. Stack:
 Swift + AppKit/CALayer rendering, a private **SkyLight (SLS/CGS)** window (all-Spaces,
@@ -41,8 +50,13 @@ are not authoritative:
 ## How they relate
 
 ```
+        noricore  ── system events ──▶  every tool that consumes data
+            │                              (noribar, noribento, noribox, …)
+            │
+   (battery · network · active app · CPU · calendar · time · …)
+
         noriglaze  ── themes ──▶  every tool that has appearance
-            ▲                         (noribar, …)
+            │                         (noribar, …)
             │
    (single theme switch restyles the whole setup)
 
