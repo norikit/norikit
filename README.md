@@ -4,6 +4,14 @@
   <img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="License"/>
 </p>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/norikit/norikit/main/assets/norikit/hero/dark_theme.svg"/>
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/norikit/norikit/main/assets/norikit/hero/light_theme.svg"/>
+    <img src="https://raw.githubusercontent.com/norikit/norikit/main/assets/norikit/hero/light_theme.svg" alt="norikit" width="100%"/>
+  </picture>
+</p>
+
 <h1 align="center">norikit</h1>
 
 <p align="center">
