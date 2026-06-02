@@ -9,7 +9,7 @@ Python 3.11+, stdlib only. They operate on the sibling repo checkouts under the 
 | **`sync_scaffold.py`** | Propagate `template`'s managed scaffold files (per `scaffold.manifest`) into every repo, preserving each repo's `norikit:project` region. | ✅ |
 | **`gen_roster.py`** | Render the roster (`projects.md` + README table) from `ai-docs/projects.toml`. | ✅ |
 | **`org_doctor.py`** | Cross-repo conformance check — composes roster + scaffold checks and token/badge/standalone scans. | ✅ |
-| `aggregate_docs.py` | Compile each repo's `ai-docs/` into `norikit/ecosystem/`. | planned (#22) |
+| **`aggregate_docs.py`** | Compile each repo's `ai-docs/` (from origin/main) into a read-only `norikit/ecosystem/` mirror + index. | ✅ |
 
 ## sync_scaffold
 
@@ -46,4 +46,15 @@ python3 tools/org_doctor.py
 Runs every framework conformance check — **roster** · **scaffold** · **token leftovers** · **badges** ·
 **standalone-first decision** — and prints a PASS/FAIL report, exiting 1 if anything is non-conformant.
 Powers the scheduled org-doctor Action (Phase 7).
+
+## aggregate_docs
+
+```
+python3 tools/aggregate_docs.py [--check]
+```
+
+Compiles each repo's `ai-docs/` (read from `origin/main`) into a read-only `norikit/ecosystem/` mirror
++ generated index — one place to read the whole ecosystem's design without cloning every repo. Source
+of truth stays per-repo; every mirrored file carries a DO-NOT-EDIT header. `--check` exits 1 on drift.
+(The scheduled Action should `git fetch` repos first so `origin/main` is current.)
 
