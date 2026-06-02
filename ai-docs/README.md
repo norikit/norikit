@@ -25,17 +25,20 @@ shared directive only with explicit owner direction.
 
 ## Read in this order
 
-1. **[mission.md](mission.md)** — what norikit is for, and the prime directives every
+1. **[framework.md](framework.md)** — **the operating manual: start here.** How we work
+   (enforced scrumban task tracking, the working agreement, branching, quality) and where
+   everything lives, so any agent can pick up a task cold.
+2. **[mission.md](mission.md)** — what norikit is for, and the prime directives every
    project inherits.
-2. **[conventions.md](conventions.md)** — naming, licensing, branding, git workflow,
+3. **[conventions.md](conventions.md)** — naming, licensing, branding, git workflow,
    knowledge-base discipline, repo layout.
-3. **[projects.md](projects.md)** — the current roster, what each tool is, and how they
+4. **[projects.md](projects.md)** — the current roster, what each tool is, and how they
    relate.
-4. **[project-structure.md](project-structure.md)** — the structure every norikit project
+5. **[project-structure.md](project-structure.md)** — the structure every norikit project
    should have: layout, package, source organization, knowledge base, task system, CI.
    Absorb it and rebuild an equivalent for your tool; it separates the reusable scaffolding
    from per-project domain choices.
-5. **[new-project.md](new-project.md)** — checklist for bootstrapping a new norikit tool.
+6. **[new-project.md](new-project.md)** — checklist for bootstrapping a new norikit tool.
 
 ## Keeping these current
 
