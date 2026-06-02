@@ -100,6 +100,16 @@ providers/backends, user-supplied scripts or modules, overridable behavior — s
 to "the built-in doesn't do what I need" is *plug in your own*, never *maintain a fork*.
 Forking is a failure of this directive.
 
+### 10. Standalone-first — ecosystem is progressive enhancement
+Every tool must be **fully usable on its own**, alongside a user's existing (non-norikit) setup. Running
+it inside the ecosystem should *add* capability and benefits — never be a precondition. Ecosystem
+couplings — system data from [noricore](https://github.com/norikit/noricore), themes from
+[noriglaze](https://github.com/norikit/noriglaze), notifications from
+[norify](https://github.com/norikit/norify), … — are **optional, availability-gated progressive
+enhancements**: detect them, enrich when present, degrade cleanly when absent. A tool that *requires*
+another norikit tool in order to function has violated this directive. (Makes explicit what directives
+#3, #5, #6 and #9 already imply.)
+
 ---
 
 *These directives are the foundation every norikit project inherits. The concrete shape they
