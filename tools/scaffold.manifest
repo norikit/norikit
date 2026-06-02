@@ -1,0 +1,15 @@
+# scaffold.manifest — files `template` owns; sync_scaffold propagates them to every norikit repo.
+#
+# mode:
+#   verbatim — copy template's file exactly
+#   tree     — copy every file under a template directory exactly
+#   regions  — sync the <!-- norikit:managed --> block, PRESERVE the repo's
+#              <!-- norikit:project:start/end --> region (never clobber per-repo content)
+
+[[managed]]
+path = "CLAUDE.md"
+mode = "regions"
+
+[[managed]]
+path = ".github/ISSUE_TEMPLATE"
+mode = "tree"
