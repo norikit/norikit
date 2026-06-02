@@ -13,3 +13,7 @@ mode = "regions"
 [[managed]]
 path = ".github/ISSUE_TEMPLATE"
 mode = "tree"
+
+[[managed]]
+path = ".claude/rules"
+mode = "tree"
