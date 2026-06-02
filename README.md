@@ -1,10 +1,4 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/ecosystem-norikit-32C572" alt="norikit"/>
-  <img src="https://img.shields.io/badge/platform-macOS-black" alt="macOS"/>
-  <img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="License"/>
-</p>
-
-<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/norikit/norikit/main/assets/norikit/hero/dark_theme.svg"/>
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/norikit/norikit/main/assets/norikit/hero/light_theme.svg"/>
