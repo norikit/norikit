@@ -1,4 +1,4 @@
-<!-- DO NOT EDIT — generated mirror of noripad/ai-docs/status.md by tools/aggregate_docs.py. Edit the source. -->
+<!-- DO NOT EDIT — generated mirror of noribox/ai-docs/status.md by tools/aggregate_docs.py. Edit the source. -->
 
 # Status
 

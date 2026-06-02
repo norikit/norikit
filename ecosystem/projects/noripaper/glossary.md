@@ -10,4 +10,3 @@ depth.
 - **noriglaze** — the ecosystem's theme manager; the shared source of truth for appearance.
 - **ricing** — customizing a desktop environment's look and behavior to a high degree.
 
-<!-- TEMPLATE: add this project's own domain terms below. -->

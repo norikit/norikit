@@ -1,11 +1,11 @@
-<!-- DO NOT EDIT — generated mirror of noripad/ai-docs/decisions.md by tools/aggregate_docs.py. Edit the source. -->
+<!-- DO NOT EDIT — generated mirror of noriglaze/ai-docs/decisions.md by tools/aggregate_docs.py. Edit the source. -->
 
-# Decisions — noripad
+# Decisions — noriglaze
 
 Locked architectural decisions. Treat as constraints; relitigate only with explicit owner direction.
 
 ## D1 — Standalone-first (inherited prime directive #10)
-**Decision:** noripad runs fully on its own; norikit ecosystem integrations are **optional,
+**Decision:** noriglaze runs fully on its own; norikit ecosystem integrations are **optional,
 availability-gated progressive enhancements** — never hard dependencies.
 **Rationale:** ecosystem mission directive #10 — usable standalone, better together.
 

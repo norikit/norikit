@@ -9,11 +9,10 @@ here with a one-line resolved-pointer** to the deciding `D#`.
 
 > Example of a resolved entry (keep this shape):
 >
-> > **Q0 (example) — RESOLVED 2026-05-31** by [D1](decisions.md). _One line on the outcome._
+> > **Q0 (example) — RESOLVED 2026-06-02** by [D1](decisions.md). _One line on the outcome._
 
 ---
 
-### Q1 — _<the first real open question>_  <!-- TEMPLATE -->
 
 _What's undecided, the options on the table, and what would settle it (a spike? a
 measurement? an owner call?)._
