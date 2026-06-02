@@ -1,0 +1,100 @@
+name: propagate-roster
+
+# "Define once, derive everywhere" — automated. When the roster's single source
+# of truth (ai-docs/projects.toml) changes on main, regenerate the derived
+# surfaces and open a mechanical PR so nothing is ever hand-synced.
+#
+# In-repo surfaces (ai-docs/projects.md, README roster region) are handled here.
+# The org-profile table lives in the SEPARATE norikit/.github repo; pushing there
+# needs a cross-repo token (ORG_AUTOMATION_TOKEN). If that secret is absent the
+# profile step is skipped with a notice.
+#
+# NOTE on auto-merge: PRs opened with the default GITHUB_TOKEN do NOT re-trigger
+# CI, so `--auto` would stall waiting for checks. When ORG_AUTOMATION_TOKEN (a
+# PAT) is set it is used for checkout/push/PR, CI re-triggers, and auto-merge
+# completes hands-off. Without it the PR still opens — it just needs a manual merge.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ai-docs/projects.toml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: propagate-roster
+  cancel-in-progress: false
+
+env:
+  # Job-level so it is available in step `if:` conditions. Prefer the PAT; fall
+  # back to the default token (opens PRs but cannot re-trigger CI / cross-repo).
+  ORG_TOKEN: ${{ secrets.ORG_AUTOMATION_TOKEN }}
+  GH_TOKEN: ${{ secrets.ORG_AUTOMATION_TOKEN || github.token }}
+
+jobs:
+  propagate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ORG_AUTOMATION_TOKEN || github.token }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Regenerate in-repo roster surfaces
+        run: python3 tools/gen_roster.py
+
+      - name: Open PR if derived surfaces drifted
+        run: |
+          if [ -z "$(git status --porcelain ai-docs/projects.md README.md)" ]; then
+            echo "Roster surfaces already current — nothing to do."
+            exit 0
+          fi
+          BRANCH="chore/roster-sync-${{ github.run_id }}"
+          git config user.name  "norikit-bot"
+          git config user.email "noreply@github.com"
+          git switch -c "$BRANCH"
+          git add ai-docs/projects.md README.md
+          git commit -m "chore(roster): regenerate from projects.toml [automated]"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "chore(roster): regenerate derived surfaces" \
+            --body "Automated regeneration from \`ai-docs/projects.toml\` by \`tools/gen_roster.py\`. Mechanical — safe to squash-merge on green." \
+          && gh pr merge --auto --squash "$BRANCH" || true
+
+      # ---- cross-repo profile fan-out (needs the PAT) -------------------------
+      - name: Propagate org-profile table (.github repo)
+        if: ${{ env.ORG_TOKEN != '' }}
+        run: |
+          set -e
+          git clone --quiet "https://x-access-token:${ORG_TOKEN}@github.com/norikit/.github.git" ../.github
+          python3 tools/gen_roster.py            # also writes ../.github/profile/README.md
+          cd ../.github
+          if [ -z "$(git status --porcelain profile/README.md)" ]; then
+            echo "Profile table already current."
+            exit 0
+          fi
+          BRANCH="chore/roster-sync-${{ github.run_id }}"
+          git config user.name  "norikit-bot"
+          git config user.email "noreply@github.com"
+          git switch -c "$BRANCH"
+          git add profile/README.md
+          git commit -m "chore(profile): regenerate roster table [automated]"
+          git push -u origin "$BRANCH"
+          gh pr create --repo norikit/.github \
+            --title "chore(profile): regenerate roster table" \
+            --body "Automated regeneration from norikit's \`ai-docs/projects.toml\`." \
+          && gh pr merge --repo norikit/.github --auto --squash "$BRANCH" || true
+
+      - name: Note if profile fan-out skipped
+        if: ${{ env.ORG_TOKEN == '' }}
+        run: |
+          echo "::notice::ORG_AUTOMATION_TOKEN not set — org-profile table not propagated."
+          echo "::notice::Add a fine-grained PAT (contents+PR write on norikit/.github) as ORG_AUTOMATION_TOKEN to complete the fan-out."
