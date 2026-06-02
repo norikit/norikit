@@ -1,0 +1,72 @@
+# The norikit tool roster — SINGLE SOURCE OF TRUTH.
+# Edit here, then run `tools/gen_roster.py` to regenerate projects.md, the README table,
+# (and later the org-profile table). Never hand-edit the generated outputs.
+#
+# status: active | early | placeholder
+# optional: provides / consumes  (the progressive-enhancement graph — always optional couplings)
+
+[[tool]]
+name = "noricore"
+status = "early"
+tagline = "Event broker & data backbone — aggregates system state and serves it to every tool."
+provides = ["system-events"]
+
+[[tool]]
+name = "noribar"
+status = "active"
+tagline = "Menu-bar replacement built around native, fully-animated SF Symbols. Swift + AppKit + embedded Lua."
+consumes = ["noricore", "noriglaze"]
+
+[[tool]]
+name = "noriglaze"
+status = "early"
+tagline = "Theme manager — one switch retheme every norikit tool at once."
+provides = ["themes"]
+
+[[tool]]
+name = "noricut"
+status = "early"
+tagline = "Cross-app hotkey/shortcut daemon (NWP protocol)."
+provides = ["hotkeys"]
+
+[[tool]]
+name = "noribento"
+status = "placeholder"
+tagline = "Fast, keyboard-driven tiling window manager, i3-style."
+
+[[tool]]
+name = "noribox"
+status = "placeholder"
+tagline = "Omnibox launcher — apps, commands, and search in one box."
+
+[[tool]]
+name = "norify"
+status = "placeholder"
+tagline = "Notification engine for the ecosystem."
+
+[[tool]]
+name = "noripad"
+status = "placeholder"
+tagline = "Clipboard manager — searchable history, pinning, quick paste."
+
+[[tool]]
+name = "noripaper"
+status = "placeholder"
+tagline = "Wallpaper engine — static and animated, hot-swapped on theme change."
+
+[[tool]]
+name = "noriset"
+status = "placeholder"
+tagline = "The bundler — combines all norikit tooling into one plug-and-play package."
+
+[[infra]]
+name = "norikit"
+role = "Org front door — ecosystem ai-docs, central asset store, framework tooling."
+
+[[infra]]
+name = "template"
+role = "Starter scaffold every new norikit project clones."
+
+[[infra]]
+name = ".github"
+role = "Org profile + reusable workflows + org defaults."

@@ -52,15 +52,22 @@ The name is a seaweed/bento motif — *nori* (海苔) is the seaweed that wraps 
 
 ## The projects
 
-| Project | What it is | Status |
+<!-- norikit:roster:start -->
+<!-- DO NOT EDIT — generated from ai-docs/projects.toml by tools/gen_roster.py. -->
+
+| Tool | What it is | Status |
 |---|---|---|
-| [**noribar**](https://github.com/norikit/noribar) | A macOS menu-bar replacement built around **native, fully-animated SF Symbols**. Swift + AppKit + a private SkyLight window, configured with embedded **Lua**. Inspired by [sketchybar](https://github.com/FelixKratz/SketchyBar). | 🚧 Active — first product skeleton (M1) landed |
-| [**noriglaze**](https://github.com/norikit/noriglaze) | The **theme manager** for the ecosystem. Stores your themes, serves them to the other tools, and switches the active theme across all of them at once. | 🌱 Early development |
-| [**norify**](https://github.com/norikit/norify) | _Purpose not yet documented._ | 🥚 Placeholder |
-| [**noribento**](https://github.com/norikit/noribento) | _Purpose not yet documented._ | 🥚 Placeholder |
-| [**noribox**](https://github.com/norikit/noribox) | _Purpose not yet documented._ | 🥚 Placeholder |
-| [**noricut**](https://github.com/norikit/noricut) | _Purpose not yet documented._ | 🥚 Placeholder |
-| [**template**](https://github.com/norikit/template) | Starter template for new norikit projects. | 🧩 Scaffold |
+| [noribar](https://github.com/norikit/noribar) | Menu-bar replacement built around native, fully-animated SF Symbols. Swift + AppKit + embedded Lua. | 🚧 Active |
+| [noricore](https://github.com/norikit/noricore) | Event broker & data backbone — aggregates system state and serves it to every tool. | 🌱 Early |
+| [noricut](https://github.com/norikit/noricut) | Cross-app hotkey/shortcut daemon (NWP protocol). | 🌱 Early |
+| [noriglaze](https://github.com/norikit/noriglaze) | Theme manager — one switch retheme every norikit tool at once. | 🌱 Early |
+| [noribento](https://github.com/norikit/noribento) | Fast, keyboard-driven tiling window manager, i3-style. | 🥚 Stub |
+| [noribox](https://github.com/norikit/noribox) | Omnibox launcher — apps, commands, and search in one box. | 🥚 Stub |
+| [norify](https://github.com/norikit/norify) | Notification engine for the ecosystem. | 🥚 Stub |
+| [noripad](https://github.com/norikit/noripad) | Clipboard manager — searchable history, pinning, quick paste. | 🥚 Stub |
+| [noripaper](https://github.com/norikit/noripaper) | Wallpaper engine — static and animated, hot-swapped on theme change. | 🥚 Stub |
+| [noriset](https://github.com/norikit/noriset) | The bundler — combines all norikit tooling into one plug-and-play package. | 🥚 Stub |
+<!-- norikit:roster:end -->
 
 > noribar is the most mature project today. The structure, conventions, and prime
 > directives that every norikit project shares are documented in [`ai-docs/`](ai-docs/) —
