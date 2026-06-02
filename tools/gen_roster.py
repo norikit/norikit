@@ -45,6 +45,16 @@ def tool_table(tools: list[dict]) -> str:
     return "\n".join(rows)
 
 
+def profile_table(tools: list[dict]) -> str:
+    rows = ["| | Tool | What it is | Status |", "|:--:|---|---|---|"]
+    for t in tools:
+        n = t["name"]
+        icon = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/{n}-dark.svg">'
+                f'<img src="assets/{n}-light.svg" alt="" width="64"></picture>')
+        rows.append(f"| {icon} | [**{n}**]({ORG}/{n}) | {t['tagline']} | {BADGE.get(t['status'], t['status'])} |")
+    return "\n".join(rows)
+
+
 def projects_md(tools: list[dict], infra: list[dict]) -> str:
     out = [GEN, "", "# norikit — project roster", "",
            "The toolkit, generated from `ai-docs/projects.toml`. To change it, edit the TOML and run",
@@ -89,9 +99,17 @@ def main() -> None:
         else:
             targets.append((readme, merged))
 
+    profile = REPO.parent / ".github" / "profile" / "README.md"
+    if profile.exists():
+        merged = replace_region(profile.read_text(), profile_table(tools))
+        if merged is None:
+            print("  ! profile/README.md lacks roster markers — skipping")
+        else:
+            targets.append((profile, merged))
+
     drift = False
     for path, content in targets:
-        rel = path.relative_to(REPO)
+        rel = path.relative_to(REPO.parent)
         if path.exists() and path.read_text() == content:
             print(f"  ✓ {rel}: in sync")
         else:
