@@ -1,4 +1,4 @@
-<!-- DO NOT EDIT — generated mirror of noripaper/ai-docs/open-questions.md by tools/aggregate_docs.py. Edit the source. -->
+<!-- DO NOT EDIT — generated mirror of noribento/ai-docs/open-questions.md by tools/aggregate_docs.py. Edit the source. -->
 
 # Open questions
 

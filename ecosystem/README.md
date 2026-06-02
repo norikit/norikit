@@ -8,11 +8,15 @@ Read-everything mirror. **Doctrine** (mission · conventions · framework · ros
 
 ## Projects
 
+- **noribento** — [README](projects/noribento/README.md) · [architecture](projects/noribento/architecture.md) · [decisions](projects/noribento/decisions.md) · [glossary](projects/noribento/glossary.md) · [open-questions](projects/noribento/open-questions.md) · [status](projects/noribento/status.md)
+- **noribox** — [README](projects/noribox/README.md) · [architecture](projects/noribox/architecture.md) · [decisions](projects/noribox/decisions.md) · [glossary](projects/noribox/glossary.md) · [open-questions](projects/noribox/open-questions.md) · [status](projects/noribox/status.md)
 - **noricore** — [README](projects/noricore/README.md) · [architecture](projects/noricore/architecture.md) · [decisions](projects/noricore/decisions.md) · [glossary](projects/noricore/glossary.md) · [open-questions](projects/noricore/open-questions.md) · [status](projects/noricore/status.md)
+- **norify** — [README](projects/norify/README.md) · [architecture](projects/norify/architecture.md) · [decisions](projects/norify/decisions.md) · [glossary](projects/norify/glossary.md) · [open-questions](projects/norify/open-questions.md) · [status](projects/norify/status.md)
+- **noriglaze** — [README](projects/noriglaze/README.md) · [architecture](projects/noriglaze/architecture.md) · [decisions](projects/noriglaze/decisions.md) · [glossary](projects/noriglaze/glossary.md) · [open-questions](projects/noriglaze/open-questions.md) · [status](projects/noriglaze/status.md)
 - **noripad** — [README](projects/noripad/README.md) · [architecture](projects/noripad/architecture.md) · [decisions](projects/noripad/decisions.md) · [glossary](projects/noripad/glossary.md) · [open-questions](projects/noripad/open-questions.md) · [status](projects/noripad/status.md)
 - **noripaper** — [README](projects/noripaper/README.md) · [architecture](projects/noripaper/architecture.md) · [decisions](projects/noripaper/decisions.md) · [glossary](projects/noripaper/glossary.md) · [open-questions](projects/noripaper/open-questions.md) · [status](projects/noripaper/status.md)
 - **noriset** — [README](projects/noriset/README.md) · [architecture](projects/noriset/architecture.md) · [decisions](projects/noriset/decisions.md) · [glossary](projects/noriset/glossary.md) · [open-questions](projects/noriset/open-questions.md) · [status](projects/noriset/status.md)
 
 ## Not yet mirrored
 
-_No `ai-docs/` on `main` yet (bare or pending migration):_ noribar, noribento, noribox, noricut, norify, noriglaze.
+_No `ai-docs/` on `main` yet (bare or pending migration):_ noribar, noricut.

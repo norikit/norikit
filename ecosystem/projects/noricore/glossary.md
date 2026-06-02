@@ -10,12 +10,20 @@ Domain terms used across noricore's docs and code. Keep entries short; link out 
 - **ricing** — customizing a desktop environment's look and behavior to a high degree.
 - **event broker** — a process that receives events from producers and forwards them to
   interested subscribers; noricore is the norikit event broker.
+- **beacon** — noricore's role as a bidirectional hub ([D6](decisions.md)): client apps both
+  **publish** their own events/data to it and **subscribe**/query others' — a shared rendezvous
+  point for the ecosystem, not a one-way fan-out.
+- **producer-client** — an external process that connects to noricore and *publishes* events
+  under a topic namespace (e.g. AeroSpace publishing `wm.workspace`). Unlike a built-in
+  **provider** (an in-daemon module), a producer-client is a separate app; to the Broker they
+  are equivalent event sources.
 - **provider** — a noricore module that monitors one system data source (battery, network,
   active app, etc.) and publishes typed events to the Broker when that source changes.
 - **topic** — a named channel within the Broker (e.g. `battery.level`, `network.ssid`);
   subscribers register interest in topics; providers publish to topics.
 - **subscriber / client** — a process (noribar, noriglaze, a third-party tool) that
-  connects to noricore to receive push events or send pull queries.
+  connects to noricore to receive push events, send pull queries, or publish its own
+  events/data (see **beacon**, **producer-client**).
 - **push** — the event-stream interaction mode: noricore delivers events to clients as
   they happen, without the client polling.
 - **pull / query** — the request/response interaction mode: a client asks for the current
@@ -25,4 +33,4 @@ Domain terms used across noricore's docs and code. Keep entries short; link out 
 - **LaunchAgent** — a macOS mechanism for running a per-user daemon automatically at login,
   managed by `launchd`. noricore is distributed as a LaunchAgent.
 - **IPC** — inter-process communication; the mechanism by which the noricore daemon and
-  its clients exchange events and queries. Type TBD (see Q1 in open-questions.md).
+  its clients exchange events and queries. A unix domain socket (see D4 in decisions.md).

@@ -1,28 +1,14 @@
 <!-- DO NOT EDIT — generated mirror of noriset/ai-docs/decisions.md by tools/aggregate_docs.py. Edit the source. -->
 
-# Architectural decisions
+# Decisions — noriset
 
-Locked decisions are **constraints**. Do not relitigate without explicit owner direction.
-When a new decision is made, add an entry here (newest at the bottom) and, if it resolves an
-[open question](open-questions.md), replace that entry there with a one-line pointer.
+Locked architectural decisions. Treat as constraints; relitigate only with explicit owner direction.
 
-Format: each decision has an **ID** (`D1`, `D2`, …), a status, the decision, and the
-rationale (and consequences/risks where relevant). Tasks cite the `D#` they produce.
+## D1 — Standalone-first (inherited prime directive #10)
+**Decision:** noriset runs fully on its own; norikit ecosystem integrations are **optional,
+availability-gated progressive enhancements** — never hard dependencies.
+**Rationale:** ecosystem mission directive #10 — usable standalone, better together.
 
----
-
-## D1 — Target platform & stack
-
-- **Status:** _Proposed / Locked (2026-05-31)_
-- **Decision:** _e.g. native Swift application targeting macOS 13._ <!-- TEMPLATE -->
-- **Rationale:** _Why this stack gives the best performance/feature set for this tool.
-  Stack is a per-project choice, not a house default — justify it._
-
-<!--
-Record the rest of your day-one decisions as D2, D3, … Typical ones:
-  - OS floor + availability-gating policy for newer features
-  - Rendering / UI approach              (if the tool has a UI)
-  - Configuration model                  (if the tool is user-configurable)
-  - noriglaze theming integration        (strong default for anything with UI)
-Each: Status / Decision / Rationale / Consequence.
--->
+## D2 — Stack, OS floor & UI/config — *pending*
+_Pending owner input (language/stack, macOS floor, rendering/UI, config model, noriglaze
+integration). Record day-one decisions here; mirror the headlines in CLAUDE.md._

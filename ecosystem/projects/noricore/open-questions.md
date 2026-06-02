@@ -13,24 +13,11 @@ here with a one-line resolved-pointer** to the deciding `D#`.
 
 ---
 
-### Q1 — IPC mechanism
+### Q1 — RESOLVED 2026-06-02 by [D4](decisions.md)
 
-Which transport does noricore use to communicate between the daemon and its clients?
-
-Options on the table:
-- **XPC** — Apple-native, secure, process-isolated, sandbox-compatible. Downside: both
-  sides must share the same interface definition; non-Apple languages (Python, Rust, Go)
-  are harder to connect without a C shim.
-- **Unix domain socket** — simple, cross-language, any tool can connect without linking
-  an Apple SDK; requires explicitly defining the wire protocol (see Q2). Standard path
-  convention makes discovery trivial.
-- **Mach ports** — low-level, used by sketchybar/yabai; maximum throughput and latency,
-  but complex API and poor ergonomics for third-party adoption.
-- **NSDistributedNotificationCenter** — minimal setup, but limited payload size, no
-  query/response pattern, and broadcasts to all observers system-wide.
-
-What would settle it: a spike comparing XPC vs unix socket on latency and third-party
-client ergonomics (e.g. can a Python or Lua script connect without bridging code?).
+Transport is a single **unix domain socket** — general, language-agnostic, and the
+consensus choice among comparable tools. No multi-transport abstraction; Windows/TCP is out
+of scope. D1 is unchanged.
 
 ### Q2 — Wire protocol / event schema
 
@@ -44,6 +31,12 @@ but ties the schema to Apple's type system).
 What would settle it: depends partly on Q1; also depends on whether latency measurements
 show JSON overhead matters at typical noricore event frequencies (battery changes are rare;
 active-app changes are frequent but small payloads).
+
+Narrowed by [D5](decisions.md): there are **two channels**. The **simple** socket is
+newline-delimited **text** (pinned). The **structured** socket is length-prefixed framed
+messages with **JSON** as the leading encoding (vs MessagePack / custom binary). Remaining:
+confirm the structured encoding and the versioning scheme — and keep the schema legible as
+*both* framed JSON and flat text lines (e.g. `battery.level 82` vs `{"topic":...}`).
 
 ### Q3 — Event subscription model
 
@@ -59,6 +52,10 @@ Options:
 
 What would settle it: an owner call on the target client API ergonomics and whether
 fine-grained filtering is in scope for v1.
+
+Note ([D5](decisions.md)): the simple text socket implies **topic-string** addressing (a flat
+`topic value` line, optionally filtered by topic prefix). Typed or filter-expression
+subscriptions, if adopted, would live on the structured socket only.
 
 ### Q4 — Authorization model
 
@@ -76,19 +73,38 @@ need to gate per-client access to those topics?
 What would settle it: a review of which providers touch privacy-sensitive data plus an
 owner call on the desired trust model for third-party consumers.
 
-### Q5 — Third-party provider plugin API
+Note ([D4](decisions.md)): with a single unix-socket transport, auth can lean on local
+guarantees — peer credentials (`LOCAL_PEERCRED`/`getpeereid`) + filesystem permissions —
+rather than a per-transport scheme.
 
-How can external code contribute custom event sources to the broker?
+Extended by [D6](decisions.md): publishing is now in scope, so authorization must also cover
+**who may publish what** — may any client publish into reserved provider namespaces like
+`battery.*`, or only into its own? (See [Q6](open-questions.md).)
 
-Options:
-- **No plugin API (v1 scope)** — built-in providers only; third-party tools are consumers.
-  Keep scope tight and revisit after the core is stable.
-- **Producer-client** — a process connects to noricore as a "producer" (reverse client) and
-  publishes events under a custom topic namespace. Requires no special plugin loading.
-- **Dynamic library plugin** — noricore loads `.dylib` plugins; they register `Provider`
-  implementations at startup. Full integration; introduces security and stability concerns.
-- **Script-based provider** — noricore executes a user-supplied script and reads stdout as
-  event data (sketchybar-style). Simple for users; sandboxing is tricky.
+### Q5 — RESOLVED 2026-06-02 by [D6](decisions.md)
 
-What would settle it: an owner call on extensibility scope for v1, and whether the
-producer-client model satisfies the third-party use case without needing in-process plugins.
+The **producer-client** model is adopted: external processes connect and publish events/data
+under a topic namespace — no in-daemon dylib or script plugins. noricore is a bidirectional
+**beacon** (publish + subscribe). The dylib and script-based provider options are not adopted.
+
+### Q6 — Topic namespacing & ownership
+
+With producer-clients (D6) able to publish, who owns which topics?
+- Are built-in provider namespaces (`battery.*`, `network.*`, `app.*`, …) **reserved**, so a
+  third party cannot publish — or spoof — them?
+- Do producers get a free namespace (their own `wm.*`, `input.*`), or must they claim/register
+  a prefix first?
+- Collision policy when two producers publish the same topic.
+
+What would settle it: a naming convention (reserved vs open prefixes) plus the publish-auth
+call in [Q4](open-questions.md).
+
+### Q7 — Producer liveness & retention
+
+When a producer-client disconnects (e.g. AeroSpace quits or crashes), what happens to the
+values it published? Keep the last value (retained, MQTT-style) so subscribers still read
+`wm.workspace`; mark it stale/unknown; or drop it after a TTL? And should a subscriber be able
+to tell that a topic's producer is gone?
+
+What would settle it: an owner call on whether *stale-but-present* or *explicitly-absent* is the
+better default for consumers (a bar showing the last workspace vs. blanking it).
