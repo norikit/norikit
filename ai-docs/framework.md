@@ -105,14 +105,17 @@ Creating/operating issues (the `gh` recipe):
 
 ---
 
-## Quality system _(enforcement in progress — Phase "Quality & enforcement")_
+## Quality system
 
-- **Branch ruleset on `main`:** require a PR · required status checks green · require conversation
-  resolution · squash-only (auto commit body from commits) · no force-push · no bypass.
-- **CI** (reusable workflow): build · test · strict lint · formatting · org-doctor conformance · DoD gate.
-- **Formatting:** one org-wide style applied automatically (swift-format · StyLua · Prettier; configs synced).
-- **AI review:** posts severity-tuned inline threads; "require conversation resolution" gates merge — you
-  resolve each (fix, or reply-and-resolve) as a per-finding, audited override.
+See **[repo-conformance.md](repo-conformance.md)** for the full picture (the two enforcement layers,
+how to run the conformance gate, and operator setup). In brief:
+
+- **Content conformance:** `tools/org_doctor.py` (roster · scaffold · tokens · badges · standalone) —
+  run on PRs + weekly via the `org-doctor` workflow; derived artifacts regenerate via `propagate-roster`.
+- **Branch ruleset on `main`** (`tools/apply_org_ruleset.sh`): require a PR · 0 approvals · require
+  conversation resolution · squash-only · no force-push · no deletion · no bypass.
+- **CI** (reusable workflow): build · test · lint · DoD gate.
+- _Deferred (operator setup): formatting via autofix.ci · AI review (pin action first) · `ORG_AUTOMATION_TOKEN`._
 
 ---
 
